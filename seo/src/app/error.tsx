@@ -1,4 +1,4 @@
-import { Link, isRouteErrorResponse, redirect, useRouteError } from 'react-router-dom';
+import { Link, isRouteErrorResponse, useRouteError } from 'react-router-dom';
 
 export default function ErrorPage() {
   const error = useRouteError();
@@ -17,7 +17,7 @@ export default function ErrorPage() {
   }
 
   return (
-    <div id='error-page'>
+    <div id='error-page' data-testid='error-page'>
       <h1>Oops!</h1>
       <p>예상하지 못한 에러가 발생했어요.</p>
       <p>

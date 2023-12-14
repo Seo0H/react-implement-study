@@ -23,8 +23,9 @@
     "paths": {
       "@/*": ["./src/*"],
       "/*": ["./public/*"]
-    }
+    },
+    "esModuleInterop": true
   },
-  "include": ["src"],
+  "include": ["src", "jest.setup.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

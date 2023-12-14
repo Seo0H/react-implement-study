@@ -1,3 +1,4 @@
-## README
+## seo - 과제 구현 레포
 
-- 예시 푤더 입니다.
+- 사용 기술
+  - vite, React, TypeScript, SWC

@@ -1,18 +1,13 @@
-import { todoApi } from '@/api/client';
-import { useTodoContext } from '@/app/context';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { memo } from 'react';
 
-const DeleteTodoButton = ({ id }: { id: number }) => {
-  const { setTodoList } = useTodoContext();
+import { useDeleteTodoMutation } from '@/redux/api/todo-api';
+import { TodoClientData } from '@/types/todo';
 
-  const handleDeleteTodo = (todoId: number) => {
-    todoApi
-      .deleteTodoApi(todoId)
-      .then(() =>
-        setTodoList((prev) => prev.filter((TodoServerData) => TodoServerData.id !== todoId))
-      )
-      .catch((e) => console.log(e));
-  };
-  return <button onClick={() => handleDeleteTodo(id)}>삭제</button>;
+const DeleteTodoButton = ({ id }: TodoClientData) => {
+  const [deleteTodo] = useDeleteTodoMutation();
+
+  return <button onClick={() => deleteTodo({ id })}>삭제</button>;
 };
 
-export default DeleteTodoButton;
+export default memo(DeleteTodoButton);

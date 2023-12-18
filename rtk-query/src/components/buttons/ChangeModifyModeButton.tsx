@@ -1,18 +1,7 @@
-import { useTodoContext } from '@/app/context';
+import { memo } from 'react';
 
-const ChangeModifyModeButton = ({ idx }: { idx: number }) => {
-  const { todoList, setTodoList } = useTodoContext();
-
-  const handleChangeModifyMode = (todoIdx: number) => {
-    const modifiedTodo = todoList.map((todo, idx) => {
-      if (idx === todoIdx) todo.isModifying = !todo.isModifying;
-      return todo;
-    });
-
-    setTodoList(modifiedTodo);
-  };
-
-  return <button onClick={() => handleChangeModifyMode(idx)}>수정</button>;
+const ChangeModifyModeButton = ({ onChange }: { onChange: () => void }) => {
+  return <button onClick={() => onChange()}>수정</button>;
 };
 
-export default ChangeModifyModeButton;
+export default memo(ChangeModifyModeButton);

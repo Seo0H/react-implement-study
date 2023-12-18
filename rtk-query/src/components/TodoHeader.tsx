@@ -1,14 +1,14 @@
 import { useRef } from 'react';
 
-import { todoApi } from '@/api/client';
-import { useTodoContext } from '@/app/context';
+import { useCreateTodoMutation, useDeleteAllTodoMutation } from '@/redux/api/todo-api';
 import { checkEmptyString } from '@/utils/checkData';
 
 const TodoHeader = () => {
   const addTodoInputRef = useRef<HTMLInputElement>(null);
-  const { setTodoList } = useTodoContext();
+  const [createTodo] = useCreateTodoMutation();
+  const [deleteAllTodo] = useDeleteAllTodoMutation();
 
-  const handleDeleteAll = () => todoApi.deleteAllTodoApi().then(() => setTodoList([]));
+  const handleDeleteAll = () => deleteAllTodo();
 
   const handleAddTodo = () => {
     if (addTodoInputRef.current === null) return;
@@ -18,14 +18,10 @@ const TodoHeader = () => {
       addTodoInputRef.current.value = '';
       throw new Error('빈칸은 허용되지 않아요.');
     }
-
-    todoApi
-      .createTodoApi(addTodoData.trim())
-      .then((resTodo) => {
-        if (addTodoInputRef.current !== null) addTodoInputRef.current.value = '';
-        setTodoList((prev) => [...prev, resTodo]);
-      })
-      .catch((e) => console.log(e));
+    createTodo({ todo: addTodoData.trim() }).then(() => {
+      if (addTodoInputRef.current === null) return;
+      addTodoInputRef.current.value = '';
+    });
   };
 
   return (
